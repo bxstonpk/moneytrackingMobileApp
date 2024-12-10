@@ -68,6 +68,7 @@ class _IntroductionUIState extends State<IntroductionUI> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Environment.bottomColor(context),
                       shadowColor: Environment.bottomColor(context),
+                      elevation: 10,
                     ),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.7,

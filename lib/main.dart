@@ -1,9 +1,13 @@
+// ignore_for_file: unused_local_variable, prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:money_tracking_project/environment.dart';
 import 'package:money_tracking_project/views/splash_screen_ui.dart';
 
 void main() {
+  UserData userData = Get.put(UserData());
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MyApp(),
