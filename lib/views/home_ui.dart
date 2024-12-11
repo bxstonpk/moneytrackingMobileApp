@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -191,6 +192,51 @@ class _HomeUIState extends State<HomeUI> {
               ),
             ),
           ),
+          Positioned(
+            bottom: MediaQuery.of(context).size.height * 0.0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.1,
+              decoration: BoxDecoration(
+                color: Environment.backgroundColor(context),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.15,
+                  right: MediaQuery.of(context).size.width * 0.15,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Icon(
+                        FontAwesomeIcons.moneyBillTrendUp,
+                        color: Environment.textColor(context),
+                        size: MediaQuery.of(context).size.width * 0.08,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Icon(
+                        FontAwesomeIcons.house,
+                        color: Environment.textColor(context),
+                        size: MediaQuery.of(context).size.width * 0.08,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Icon(
+                        FontAwesomeIcons.moneyBillTransfer,
+                        color: Environment.textColor(context),
+                        size: MediaQuery.of(context).size.width * 0.08,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

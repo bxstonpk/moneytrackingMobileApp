@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_print, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_print, sort_child_properties_last, use_build_context_synchronously
 
 import 'dart:convert';
 import 'dart:io';
@@ -9,7 +9,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:money_tracking_project/environment.dart';
+import 'package:money_tracking_project/models/user.dart';
+import 'package:money_tracking_project/services/call_api.dart';
 import 'package:money_tracking_project/views/home_ui.dart';
+import 'package:money_tracking_project/views/introduction_ui.dart';
+import 'package:money_tracking_project/views/login_ui.dart';
 
 class RegisterUI extends StatefulWidget {
   const RegisterUI({super.key});
@@ -336,9 +340,119 @@ class _RegisterUIState extends State<RegisterUI> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Get.to(
-                      HomeUI(),
-                    );
+                    if (_nameCtr.text.trim().isEmpty) {
+                      Get.snackbar(
+                        'แจ้งเตือน',
+                        'กรุณากรอกชื่อ-สกุล',
+                        backgroundColor: Colors.red.withOpacity(0.7),
+                        colorText: Colors.white,
+                      );
+                    } else if (_birthdayCtr.text.trim().isEmpty) {
+                      Get.snackbar(
+                        'แจ้งเตือน',
+                        'กรุณากรอกวัน-เดือน-ปีเกิด',
+                        backgroundColor: Colors.red.withOpacity(0.7),
+                        colorText: Colors.white,
+                      );
+                    } else if (_usernameCtr.text.trim().isEmpty) {
+                      Get.snackbar(
+                        'แจ้งเตือน',
+                        'กรุณากรอกชื่อผู้ใช้',
+                        backgroundColor: Colors.red.withOpacity(0.7),
+                        colorText: Colors.white,
+                      );
+                    } else if (_passwordCtr.text.trim().isEmpty) {
+                      Get.snackbar(
+                        'แจ้งเตือน',
+                        'กรุณากรอกรหัสผ่าน',
+                        backgroundColor: Colors.red.withOpacity(0.7),
+                        colorText: Colors.white,
+                      );
+                    } else {
+                      User user = User(
+                        userFullName: _nameCtr.text,
+                        userBirthDate: _birthdayCtr.text,
+                        userName: _usernameCtr.text,
+                        userPassword: _passwordCtr.text,
+                        userImage: userData.getUserImage(),
+                      );
+
+                      CallApi.registerAPI(user).then((value) {
+                        if (value.isNotEmpty) {
+                          Get.defaultDialog(
+                            title: 'แจ้งเตือน',
+                            titleStyle: TextStyle(
+                              color: Environment.bottomColor(context),
+                              fontWeight: FontWeight.bold,
+                            ),
+                            content: Column(
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                Text(
+                                  'ลงทะเบียนสำเร็จ',
+                                  style: TextStyle(
+                                    color: Environment.bottomColor(context),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Get.offAll(
+                                      LoginUI(),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Environment.bottomColor(context),
+                                    shadowColor:
+                                        Environment.bottomColor(context)
+                                            .withOpacity(0.5),
+                                    elevation: 15,
+                                  ),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.06,
+                                    child: Center(
+                                      child: Text(
+                                        'เข้าสู่ระบบ',
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.02,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          Get.snackbar(
+                            'แจ้งเตือน',
+                            'ลงทะเบียนไม่สำเร็จ',
+                            backgroundColor: Colors.red.withOpacity(0.7),
+                            colorText: Colors.white,
+                          );
+                        }
+                      });
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Environment.bottomColor(context),

@@ -93,3 +93,57 @@ class UserData extends GetxController {
     userImageSelected.value = value;
   }
 }
+
+class MoneyData extends GetxController {
+  RxList<String> moneyDetails = <String>[].obs;
+  RxList<String> moneyDate = <String>[].obs;
+  RxList<String> moneyInOut = <String>[].obs;
+  RxList<String> moneyType = <String>[].obs;
+
+  void clear() {
+    moneyDetails.clear();
+    moneyDate.clear();
+    moneyInOut.clear();
+    moneyType.clear();
+  }
+
+  void addMoneyDetails(List value) {
+    for (var i in value) {
+      moneyDetails.add(i);
+    }
+  }
+
+  void addMoneyDate(List value) {
+    for (var i in value) {
+      moneyDate.add(i);
+    }
+  }
+
+  void addMoneyInOut(List value) {
+    for (var i in value) {
+      moneyInOut.add(i);
+    }
+  }
+
+  void addMoneyType(List value) {
+    for (var i in value) {
+      moneyType.add(i);
+    }
+  }
+
+  List<String> getMoneyDetails() {
+    return moneyDetails;
+  }
+
+  List<String> getMoneyDate() {
+    return moneyDate;
+  }
+
+  List<String> getMoneyInOut() {
+    return moneyInOut;
+  }
+
+  List<String> getMoneyType() {
+    return moneyType;
+  }
+}

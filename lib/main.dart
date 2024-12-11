@@ -8,6 +8,8 @@ import 'package:money_tracking_project/views/splash_screen_ui.dart';
 
 void main() {
   UserData userData = Get.put(UserData());
+  MoneyData moneyData = Get.put(MoneyData());
+
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MyApp(),
